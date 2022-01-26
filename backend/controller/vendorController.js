@@ -8,3 +8,12 @@ exports.addVendor = async (userProfile) => {
     return error.message;
   }
 };
+
+exports.fetchVendor = async (userId) => {
+  try {
+    const fetchedVendor = await Vendor.findOne({ userId: userId });
+    return fetchedVendor;
+  } catch (error) {
+    return error.message;
+  }
+};

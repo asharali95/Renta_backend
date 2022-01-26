@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 
-// Schema of Vendor
-
-const vendorSchema = new mongoose.Schema({
+const buyerSchema = new mongoose.Schema({
   fullName: {
     type: String,
     required: [true, "Full name is required"],
@@ -21,7 +19,7 @@ const vendorSchema = new mongoose.Schema({
     required: true,
   },
 
-  shopAddress: {
+  residentialAddress: {
     type: String,
   },
 
@@ -37,5 +35,6 @@ const vendorSchema = new mongoose.Schema({
   },
 });
 
-const Vendor = new mongoose.model("Vendor", vendorSchema);
-module.exports = Vendor;
+const Buyer = mongoose.model("Buyer", buyerSchema);
+
+module.exports = Buyer;
