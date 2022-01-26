@@ -11,7 +11,7 @@ exports.addBuyer = async (userProfile) => {
 
 exports.fetchBuyer = async (userId) => {
   try {
-    const fetchedBuyer = await Buyer.findOne({ _id: userId });
+    const fetchedBuyer = await Buyer.findOne({ userId: userId });
     return fetchedBuyer;
   } catch (error) {
     return error.message;

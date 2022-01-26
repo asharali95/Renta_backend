@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: [true, "Phone number is already taken"],
-    maxLength: [11, "Phone number is too long"],
+    maxLength: [13, "Phone number is too long"],
   },
   role: {
     type: String,
@@ -67,6 +67,17 @@ userSchema.methods.passwordVerification = async (password, hashedPassword) => {
   return await bcrypt.compare(password, hashedPassword);
 };
 
+//reset password
+userSchema.methods.passwordResetTokenGenerator = function () {
+  var resetToken = crypto.randomBytes(32).toString("hex");
+  var encryptedResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+  this.passwordResetToken = encryptedResetToken;
+  this.passwordResetTokenExpiredAt = Date.now() + 10 * 60 * 1000;
+  return resetToken;
+};
 // encrypting password before saving in database
 userSchema.pre("save", async function (next) {
   //TODO: check if password change then do the following
